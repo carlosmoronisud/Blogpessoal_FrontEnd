@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '@phosphor-icons/react/dist/icons/Spinner'; // Importe o Spinner
 import { AuthContext } from '@/contexts/AuthContext'; // Certifique-se de que este caminho está correto
 import { ToastAlerta } from '@/utils/ToastAlerta'; // Certifique-se de que este caminho está correto
+import { useContext, useState, useEffect } from 'react';
 
 const PerfilPage = () => {
   const { usuario, handleLogout } = useContext(AuthContext);

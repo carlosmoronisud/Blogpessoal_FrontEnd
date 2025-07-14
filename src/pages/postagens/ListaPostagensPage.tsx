@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '@phosphor-icons/react/dist/icons/Spinner'; // Importe o Spinner
 import { AuthContext } from '@/contexts/AuthContext'; // Importe o AuthContext
@@ -7,6 +6,7 @@ import { buscar } from '@/services/Service'; // Importe a função buscar do seu
 import { ToastAlerta } from '@/utils/ToastAlerta'; // Importe o ToastAlerta
 import type Postagem from '@/models/Postagem'; // Importe o tipo Postagem
 import CardPostagens from '@/components/postagem/cardpostagem/CardPostagem';
+import { useState, useContext, useEffect } from 'react';
 
 
 const ListaPostagensPage = () => {
@@ -46,9 +46,9 @@ const ListaPostagensPage = () => {
       ToastAlerta('Você precisa estar logado!', 'info');
       navigate('/login');
     } else {
-      buscarPostagens(); // Chama a função para buscar postagens
+      buscarPostagens(); 
     }
-  }, [token, navigate]); // Dependências: token e navigate
+  }, [token, navigate]); 
 
   return (
     <>

@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import type Tema from '@/models/Tema'; // Certifique-se de que este caminho está correto
 import { buscar } from '@/services/Service'; // Certifique-se de que este caminho está correto
 import { AuthContext } from '@/contexts/AuthContext'; // Certifique-se de que este caminho está correto
 import { ToastAlerta } from '@/utils/ToastAlerta'; // Certifique-se de que este caminho está correto
 import { Spinner } from '@phosphor-icons/react/dist/icons/Spinner'; // Certifique-se de que '@phosphor-icons/react' está instalado
+import { useState, useContext, useEffect } from 'react';
 
 function ListaTemas() {
   const [temas, setTemas] = useState<Tema[]>([]);
@@ -47,11 +46,10 @@ function ListaTemas() {
 
   // Efeito para buscar os temas ao carregar a página (com dependência ajustada)
   useEffect(() => {
-    // Só busca temas se o token estiver presente
     if (token !== "") {
         buscarTemas()
     }
-  }, [token]) // Dependência 'token' para recarregar temas se o token mudar
+  }, [token])
 
   return (
     <>
