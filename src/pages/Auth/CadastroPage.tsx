@@ -3,12 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios'; // Mantenha o axios para isAxiosError
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { cadastrarLocal } from '../../services/Service'; // <<< Importa do Service.ts
-import type { CadastroRequestDTO } from '@/dtos/CadastroRequestDTO';
-
-
-// Remova a const API_BASE_URL daqui
-// const API_BASE_URL = "https://blogpessoal-esoc.onrender.com";
+import type Usuario from '@/models/Usuario';
+import { cadastrarUsuario } from '@/services/Service';
 
 function CadastroPage() {
   const navigate = useNavigate();
@@ -18,6 +14,14 @@ function CadastroPage() {
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [foto, setFoto] = useState('');
+
+  const [usuario, setUsuario] = useState<Usuario>({
+      id: null,
+      nome: '',
+      usuario: '',
+      senha: '',
+      foto: ''
+    });
 
   const handleCadastro = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,18 +35,13 @@ function CadastroPage() {
       toast.error('A senha deve ter no mínimo 8 caracteres!');
       return;
     }
-
     try {
-      const requestBody: CadastroRequestDTO = {
-        nome: nome,
-        usuario: email,
-        senha: senha,
-        foto: foto || undefined
-      };
-      // Usa a função do Service.ts
-      const response = await cadastrarLocal(requestBody);
-
-      console.log('Cadastro bem-sucedido!', response.data);
+      await cadastrarUsuario(
+					'/usuarios/cadastrar',
+					usuario,
+					setUsuario
+				)  
+      console.log('Cadastro bem-sucedido!', Response);
       toast.success('Cadastro realizado com sucesso! Agora você pode fazer login.');
       navigate('/login');
 

@@ -43,71 +43,98 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Cores para o tema Pocoyo (Light Mode) */
+  --background: oklch(98% 0.05 340); /* Rosa claro, como o fundo do cenário */
+  --foreground: oklch(20% 0.05 260); /* Azul escuro para o texto principal (Pocoyo profundo) */
+
+  --card: oklch(100% 0 0); /* Branco puro para o card/formulário */
+  --card-foreground: oklch(20% 0.05 260); /* Azul escuro para texto no card */
+
+  --popover: oklch(100% 0 0); /* Branco para popover */
+  --popover-foreground: oklch(20% 0.05 260); /* Azul escuro para texto popover */
+
+  --primary: oklch(40% 0.15 260); /* O azul vibrante do Pocoyo */
+  --primary-foreground: oklch(100% 0 0); /* Branco para o texto no botão primário */
+
+  --secondary: oklch(80% 0.2 90); /* O amarelo vibrante do Pato */
+  --secondary-foreground: oklch(20% 0.05 260); /* Azul escuro para texto no botão secundário */
+
+  --muted: oklch(90% 0.05 260); /* Azul suave (céu, elementos mais discretos) */
+  --muted-foreground: oklch(50% 0.05 260); /* Azul médio para texto muted */
+
+  --accent: oklch(60% 0.2 20); /* Um tom de vermelho/rosa da Elly/Lula para destaque */
+  --accent-foreground: oklch(100% 0 0); /* Branco para texto no accent */
+
+  --destructive: oklch(57.7% 0.245 27.325); /* Vermelho padrão para ações destrutivas */
+
+  --border: oklch(80% 0.05 260); /* Azul claro para bordas (similar ao muted) */
+  --input: oklch(95% 0.05 260); /* Azul muito claro para inputs */
+  --ring: oklch(80% 0.2 90); /* O amarelo vibrante para o anel de foco (do Pato) */
+
+  /* Cores para gráficos, mantidas ou ajustadas se houver elementos específicos */
+  --chart-1: oklch(64.6% 0.222 41.116);  /* Tom avermelhado */
+  --chart-2: oklch(60% 0.118 184.704); /* Tom esverdeado/azulado */
+  --chart-3: oklch(39.8% 0.07 227.392); /* Tom roxo/azul mais escuro */
+  --chart-4: oklch(82.8% 0.189 84.429); /* Tom amarelo-esverdeado */
+  --chart-5: oklch(76.9% 0.188 70.08);  /* Tom laranja/terra */
+
+  /* Sidebar pode seguir as mesmas cores primárias ou ter um esquema próprio */
+  --sidebar: oklch(98% 0.05 340); /* Fundo da sidebar como o background geral */
+  --sidebar-foreground: oklch(20% 0.05 260); /* Foreground da sidebar como o foreground geral */
+  --sidebar-primary: oklch(40% 0.15 260); /* Botões primários da sidebar (azul Pocoyo) */
+  --sidebar-primary-foreground: oklch(100% 0 0); /* Texto branco nos botões primários da sidebar */
+  --sidebar-accent: oklch(80% 0.2 90); /* Destaques da sidebar (amarelo Pato) */
+  --sidebar-accent-foreground: oklch(20% 0.05 260); /* Texto azul escuro nos destaques da sidebar */
+  --sidebar-border: oklch(80% 0.05 260); /* Bordas da sidebar (azul claro) */
+  --sidebar-ring: oklch(80% 0.2 90); /* Anel de foco da sidebar (amarelo Pato) */
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
+  /* Cores para o tema Pocoyo (Dark Mode) - Exemplo de inversão ou adaptação */
+  --background: oklch(15% 0.05 260); /* Azul escuro profundo para o fundo */
+  --foreground: oklch(90% 0.05 260); /* Azul claro para texto principal */
+
+  --card: oklch(20% 0.05 260); /* Azul escuro para o card */
+  --card-foreground: oklch(90% 0.05 260); /* Azul claro para texto do card */
+
+  --popover: oklch(20% 0.05 260);
+  --popover-foreground: oklch(90% 0.05 260);
+
+  --primary: oklch(70% 0.15 260); /* Azul do Pocoyo mais claro para o modo escuro */
+  --primary-foreground: oklch(10% 0.05 260); /* Texto escuro no primary */
+
+  --secondary: oklch(90% 0.2 90); /* Amarelo do Pato mais claro para o modo escuro */
+  --secondary-foreground: oklch(10% 0.05 260); /* Texto escuro no secondary */
+
+  --muted: oklch(25% 0.05 260);
+  --muted-foreground: oklch(60% 0.05 260);
+
+  --accent: oklch(75% 0.2 20); /* Vermelho/rosa mais claro para destaque no modo escuro */
+  --accent-foreground: oklch(10% 0.05 260);
+
+  --destructive: oklch(70.4% 0.191 22.216); /* Mantenha o vermelho para o modo escuro */
+
+  --border: oklch(30% 0.05 260);
+  --input: oklch(25% 0.05 260);
+  --ring: oklch(90% 0.2 90);
+
+  /* Mantenha as cores do gráfico */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+
+  /* Sidebar no modo escuro */
+  --sidebar: oklch(15% 0.05 260);
+  --sidebar-foreground: oklch(90% 0.05 260);
+  --sidebar-primary: oklch(70% 0.15 260);
+  --sidebar-primary-foreground: oklch(10% 0.05 260);
+  --sidebar-accent: oklch(90% 0.2 90);
+  --sidebar-accent-foreground: oklch(10% 0.05 260);
+  --sidebar-border: oklch(30% 0.05 260);
+  --sidebar-ring: oklch(90% 0.2 90);
 }
 
 @layer base {

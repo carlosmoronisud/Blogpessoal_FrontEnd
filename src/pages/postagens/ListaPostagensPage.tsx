@@ -1,30 +1,89 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Spinner } from '@phosphor-icons/react/dist/icons/Spinner'; // Importe o Spinner
+import { AuthContext } from '@/contexts/AuthContext'; // Importe o AuthContext
+import { buscar } from '@/services/Service'; // Importe a função buscar do seu Service
+import { ToastAlerta } from '@/utils/ToastAlerta'; // Importe o ToastAlerta
+import type Postagem from '@/models/Postagem'; // Importe o tipo Postagem
+import CardPostagens from '@/components/postagem/cardpostagem/CardPostagem';
+
 
 const ListaPostagensPage = () => {
+  const [postagens, setPostagens] = useState<Postagem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
+
+  // Função para buscar as postagens do backend
+  async function buscarPostagens() {
+    setIsLoading(true); // Inicia o spinner de carregamento
+    try {
+      await buscar('/postagens', setPostagens, {
+        headers: {
+          Authorization: token,
+        },
+      });
+    } catch (error: any) {
+      if (error.toString().includes('401')) {
+        handleLogout();
+        ToastAlerta('Sua sessão expirou, faça login novamente.', 'erro');
+        navigate('/login');
+      } else {
+        ToastAlerta('Erro ao buscar postagens. Tente novamente!', 'erro');
+        console.error(error);
+      }
+    } finally {
+      setIsLoading(false); // Para o spinner de carregamento
+    }
+  }
+
+  // Efeito para verificar o token e buscar as postagens ao carregar a página
+  useEffect(() => {
+    if (token === '') {
+      ToastAlerta('Você precisa estar logado!', 'info');
+      navigate('/login');
+    } else {
+      buscarPostagens(); // Chama a função para buscar postagens
+    }
+  }, [token, navigate]); // Dependências: token e navigate
+
   return (
-    // Container principal para a página, centralizado e com padding
-    <div className="container mx-auto p-4 md:p-8 bg-white shadow-lg rounded-lg mt-4">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2">
-        Lista de Postagens
-      </h1>
+    <>
+      {/* Spinner global de carregamento */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <Spinner
+            size={80}
+            className="animate-spin text-[var(--primary)]" // Cor do spinner ajustada
+          />
+        </div>
+      )}
 
-      {/* Área onde as postagens seriam listadas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/*
-          Aqui você listaria suas postagens. Exemplo de um card de postagem:
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-            <h2 className="text-xl font-semibold mb-2 text-blue-700">Título da Postagem</h2>
-            <p className="text-gray-600 text-sm">Breve descrição da postagem...</p>
-            <button className="mt-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
-              Ler Mais
-            </button>
+      {/* Container principal para a página, com fundo claro e arredondado, centralizado e com padding */}
+      <div className="container mx-auto p-4 md:p-8 lg:p-12 bg-[var(--card)] shadow-2xl rounded-3xl mt-8 mb-8 animate-fade-in-up">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[var(--primary)] mb-6 border-b-4 border-[var(--secondary)] pb-3 text-center drop-shadow-sm">
+          Nossas Aventuras no Mundo Pocoyo! 🌈
+        </h1>
+
+        {/* Área onde as postagens seriam listadas */}
+        {postagens.length === 0 && !isLoading ? ( // Mostra a mensagem apenas se não houver postagens e não estiver carregando
+          <p className="text-center text-[var(--muted-foreground)] text-lg md:text-xl col-span-full p-8">
+            Nenhuma aventura encontrada. Que tal criar uma nova? ✨
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {postagens.map((postagem) => (
+              <CardPostagens key={postagem.id} postagem={postagem} />
+            ))}
           </div>
-        */}
-        <p className="text-gray-500 col-span-full">Nenhuma postagem encontrada (ou espaço para suas postagens).</p>
-      </div>
+        )}
 
-      {/* Você pode adicionar paginação ou outros controles aqui */}
-    </div>
+        {/* Você pode adicionar paginação ou outros controles aqui */}
+      </div>
+    </>
   );
 };
 

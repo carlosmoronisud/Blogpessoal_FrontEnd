@@ -1,65 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useAuth } from '../../contexts/AuthContext';
-import { loginLocal, loginGoogle } from '../../services/Service'; // <<< Importa do Service.ts
-
 import axios from 'axios';
-import type { LoginRequestDTO } from '@/dtos/LoginRequestDTO';
-import type { GoogleLoginRequestDTO } from '@/dtos/GoogleRequestDTO';
+
 
 
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
-
+  const login = (Response: any) => {
+    localStorage.setItem('token', Response.token);
+  };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleGoogleLoginSuccess = async (credentialResponse: any) => {
-    console.log('Login do Google bem-sucedido!', credentialResponse);
-    console.log('ID Token:', credentialResponse.credential);
-
-    if (credentialResponse.credential) {
-      try {
-        const requestBody: GoogleLoginRequestDTO = { idToken: credentialResponse.credential };
-        // Usa a função do Service.ts, que já usa a instância 'api'
-        const authResponse = await loginGoogle(requestBody);
-
-        console.log('Resposta do backend (Google Login):', authResponse);
-        login(authResponse);
-        toast.success('Login com Google realizado com sucesso!');
-        navigate('/home');
-
-      } catch (error: any) {
-        console.error('Erro ao enviar ID Token para o backend:', error.response?.data || error.message);
-        toast.error('Erro ao fazer login com Google. Verifique o console.');
-      }
-    }
-  };
-
-  const handleGoogleLoginError = () => {
-    console.log('Login do Google falhou.');
-    toast.error('Falha no login com Google. Tente novamente.');
-  };
 
   const handleLocalLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const requestBody: LoginRequestDTO = { usuario: email, senha: password };
-      // Usa a função do Service.ts
-      const authResponse = await loginLocal(requestBody);
-
-      console.log('Login local bem-sucedido!', authResponse);
-      login(authResponse);
+    try {    
+      console.log('Login local bem-sucedido!', Response);
+      login(Response);
       toast.success('Login local realizado com sucesso!');
       navigate('/home');
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
             toast.error('Credenciais inválidas. Verifique seu email e senha.');
@@ -71,7 +35,6 @@ function LoginPage() {
   };
 
   return (
-    // ... (o restante do JSX permanece o mesmo)
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 p-8 bg-white shadow-md rounded-lg">
         <div>
@@ -122,12 +85,7 @@ function LoginPage() {
 
         <div className="text-center">
           <p className="text-gray-600">Ou</p>
-          <div className="mt-4 flex justify-center">
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginError}
-            />
-          </div>
+          
           <p className="mt-4 text-sm text-gray-600">
             Não tem uma conta? <Link to="/cadastro" className="font-medium text-indigo-600 hover:text-indigo-500">Cadastre-se</Link>
           </p>
