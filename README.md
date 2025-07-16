@@ -1,6 +1,6 @@
 # Blog Pessoal do Pocoyo - 🎈  
 <div align="center">
-<img src="https://ik.imagekit.io/8h7kfljfc/imagem/img/pocoyo-e-amigos.png?updatedAt=1752335000000" title="Pocoyo e amigos se divertindo" width="50%"/>
+<img src="https://ik.imagekit.io/8h7kfljfc/imagem/Design%20sem%20nome%20(4).png?updatedAt=1752699121384" title="Pocoyo e amigos se divertindo" width="50%"/>
 </div>
 
 <div align="center">
